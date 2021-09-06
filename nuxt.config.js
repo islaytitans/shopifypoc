@@ -28,6 +28,8 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
+    // https://github.com/gomah/nuxt-graphql-request
+    'nuxt-graphql-request'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -45,5 +47,59 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-  }
+  },
+
+  // nuxt-graphql-request: https://github.com/gomah/nuxt-graphql-request
+  graphql: {
+    /**
+     * An Object of your GraphQL clients
+     */
+    clients: {
+      default: {
+        /**
+         * The client endpoint url
+         */
+        endpoint: 'https://swapi-graphql.netlify.com/.netlify/functions/index',
+        /**
+         * Per-client options overrides
+         * See: https://github.com/prisma-labs/graphql-request#passing-more-options-to-fetch
+         */
+        options: {},
+      },
+      shopify: {
+        /**
+         * The client endpoint url
+         */
+         endpoint: 'https://jonathanrobbinsrcntest.myshopify.com/api/2021-07/graphql.json',
+         /**
+          * Per-client options overrides
+          * See: https://github.com/prisma-labs/graphql-request#passing-more-options-to-fetch
+          */
+          options: {
+            headers: {
+              'X-Shopify-Storefront-Access-Token': 'a223a7715405f9643ff4deab9acadf91'
+            },
+          },
+      },
+      // ...your other clients
+    },
+
+    /**
+     * Options
+     * See: https://github.com/prisma-labs/graphql-request#passing-more-options-to-fetch
+     */
+    options: {},
+
+    /**
+     * Optional
+     * default: true (this includes cross-fetch/polyfill before creating the graphql client)
+     */
+    useFetchPolyfill: true,
+
+    /**
+     * Optional
+     * default: false (this includes graphql-tag for node_modules folder)
+     */
+    includeNodeModules: true,
+  },
 }
